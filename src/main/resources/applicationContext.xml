@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/aop
+          http://www.springframework.org/schema/aop/spring-aop.xsd
+           http://www.springframework.org/schema/websocket
+            http://www.springframework.org/schema/websocket/spring-websocket.xsd">
+    <context:component-scan base-package="com.bsb"  />
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--<aop:aspectj-autoproxy/>-->
+
+    <!--<context:property-placeholder location="classpath:db.properties" />-->
+
+
+    <!--<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">-->
+        <!--<property name="driverClassName" value="${jdbc.driverClassName}"/>-->
+        <!--<property name="url" value="${jdbc.url}"/>-->
+        <!--<property name="username" value="${jdbc.username}"/>-->
+        <!--<property name="password" value="${jdbc.password}"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;3. spring和MyBatis完美整合，不需要mybatis的配置映射文件 &ndash;&gt;-->
+    <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource" />-->
+        <!--<property name="mapperLocations" value="classpath*:mappers/*Mapper.xml"/>-->
+    <!--</bean>-->
+
+    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >-->
+        <!--<property name="basePackage" value="com.bsb.dao" />-->
+        <!--<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />-->
+    <!--</bean>-->
+
+    <!--spring事务管理器-->
+    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="websocket" class="com.bsb.handler.MyHandler"/>-->
+
+    <!--<websocket:handlers allowed-origins="*">-->
+        <!--<websocket:mapping path="/websocket" handler="websocket"/>-->
+        <!--<websocket:handshake-interceptors>-->
+            <!--<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>-->
+        <!--</websocket:handshake-interceptors>-->
+        <!--<websocket:sockjs></websocket:sockjs>-->
+    <!--</websocket:handlers>-->
+
+
+</beans>

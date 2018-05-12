@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.bsb.dao.UserMapper">
-    <resultMap id="BaseResultMap" type="com.bsb.pojo.User">
+<mapper namespace="com.bsb.dao.DataMapper">
+    <resultMap id="BaseResultMap" type="com.bsb.pojo.Data">
         <constructor>
             <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="real_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String"/>
-            <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
-            <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="timestamp" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="temperature" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="humidity" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="pm25" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="pm10" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="so2" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="no2" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="o3" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="co" jdbcType="DOUBLE" javaType="java.lang.Double"/>
+            <arg column="aqi" jdbcType="DOUBLE" javaType="java.lang.Double"/>
         </constructor>
 
         <!--<id property="id" column="id"/>-->

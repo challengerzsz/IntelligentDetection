@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/data/")
 public class DataController {
@@ -19,6 +21,18 @@ public class DataController {
     @RequestMapping(value = "get_now_data.do", method = RequestMethod.POST)
     public ServerResponse<Data> getNowData(String now) {
         ServerResponse<Data> response = dataService.getNowData(now);
+        return response;
+    }
+
+    @RequestMapping(value = "get_data_between_time.do", method =  RequestMethod.POST)
+    public ServerResponse<List<Data>> getDataBetweenTime(String position, String startTime, String endTime){
+
+
+
+        ServerResponse<List<Data>> response = dataService.getDataBetweenTime(position, startTime, endTime);
+        if (!response.isSuccess()) {
+            return ServerResponse.createByErrorMsg("查询失败");
+        }
         return response;
     }
 }

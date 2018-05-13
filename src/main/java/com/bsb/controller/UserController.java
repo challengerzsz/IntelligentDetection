@@ -30,4 +30,19 @@ public class UserController {
         return response;
     }
 
+    @RequestMapping(value = "logout.do", method = RequestMethod.POST)
+    public ServerResponse<String> logout(HttpSession session) {
+        session.removeAttribute(Const.CURRENT_USER);
+        return ServerResponse.createBySuccess();
+    }
+
+    @RequestMapping(value = "get_user_info.do", method = RequestMethod.POST)
+    public ServerResponse<User> getUserInfo(HttpSession session) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user != null) {
+            return ServerResponse.createBySuccess(user);
+        }
+        return ServerResponse.createByErrorMsg("用户未登录，无法获取信息");
+    }
+
 }

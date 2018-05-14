@@ -1,6 +1,7 @@
 package com.bsb.service;
 
 import com.bsb.common.ServerResponse;
+import com.bsb.pojo.AnalysisData;
 import com.bsb.pojo.ComparedData;
 import com.bsb.pojo.Data;
 
@@ -12,4 +13,6 @@ public interface IDataService {
     ServerResponse<List<Data>> getDataBetweenTime(String position, String startTime, String endTime);
 
     ServerResponse<ComparedData> getComparedData(String position, int type, String target);
+
+    ServerResponse<List<AnalysisData>> getAnalysisDatas(String position, int type, String target);
 }

@@ -3,6 +3,7 @@ package com.bsb.service.impls;
 import com.bsb.common.Const;
 import com.bsb.common.ServerResponse;
 import com.bsb.dao.DataMapper;
+import com.bsb.pojo.AnalysisData;
 import com.bsb.pojo.ComparedData;
 import com.bsb.pojo.Data;
 import com.bsb.service.IDataService;
@@ -80,6 +81,21 @@ public class DataService implements IDataService {
         datas.setTestTime(queryTimes);
 
         return ServerResponse.createBySuccess("查询成功", datas);
+    }
+
+    public ServerResponse<List<AnalysisData>> getAnalysisDatas(String position, int type, String target) {
+        String translatedTime = TimeUtil.transToTime(type);
+        String[] times = translatedTime.split(",");
+        String currentTime = times[0];
+        String endTime = times[1];
+
+
+        List<AnalysisData> analysisDatas = dataMapper.getAnalysisDatas(position, target, currentTime, endTime);
+        if (analysisDatas == null) {
+            return ServerResponse.createByErrorMsg("查询失败，无数据存在");
+        }
+        System.out.println(analysisDatas.size());
+        return ServerResponse.createBySuccess("查询成功", analysisDatas);
     }
 
 }

@@ -2,6 +2,7 @@ package com.bsb.controller;
 
 
 import com.bsb.common.ServerResponse;
+import com.bsb.pojo.AnalysisData;
 import com.bsb.pojo.ComparedData;
 import com.bsb.pojo.Data;
 import com.bsb.service.IDataService;
@@ -39,6 +40,17 @@ public class DataController {
     @RequestMapping(value = "get_compared_data.do", method = RequestMethod.POST)
     public ServerResponse<ComparedData> getComparedData(String position, int type, String target) {
         ServerResponse<ComparedData> response = dataService.getComparedData(position, type, target);
+
+        if (!response.isSuccess()) {
+            return ServerResponse.createByErrorMsg("查询失败");
+        }
+
+        return response;
+    }
+
+    @RequestMapping(value = "get_analysis_data.do", method = RequestMethod.POST)
+    public ServerResponse<List<AnalysisData>> getAnalysisData(String position, int type, String target) {
+        ServerResponse<List<AnalysisData>> response = dataService.getAnalysisDatas(position, type, target);
 
         if (!response.isSuccess()) {
             return ServerResponse.createByErrorMsg("查询失败");

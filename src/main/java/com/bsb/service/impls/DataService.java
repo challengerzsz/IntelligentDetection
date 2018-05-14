@@ -7,6 +7,7 @@ import com.bsb.pojo.AnalysisData;
 import com.bsb.pojo.ComparedData;
 import com.bsb.pojo.Data;
 import com.bsb.service.IDataService;
+import com.bsb.util.AnalysisUtil;
 import com.bsb.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,8 +95,10 @@ public class DataService implements IDataService {
         if (analysisDatas == null) {
             return ServerResponse.createByErrorMsg("查询失败，无数据存在");
         }
-        System.out.println(analysisDatas.size());
-        return ServerResponse.createBySuccess("查询成功", analysisDatas);
+
+        List<AnalysisData> responseDatas = AnalysisUtil.analysisData(analysisDatas);
+
+        return ServerResponse.createBySuccess("查询成功", responseDatas);
     }
 
 }

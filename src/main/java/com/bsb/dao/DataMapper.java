@@ -26,7 +26,7 @@ public interface DataMapper {
     @Select("SELECT timestamp FROM nationalaqi WHERE timestamp BETWEEN #{currentTime} AND #{endTime} ORDER BY timestamp ASC")
     List<String> getTimes(@Param("currentTime") String currentTime, @Param("endTime") String endTime);
 
-    @Select("SELECT * FROM ((SELECT ${target} AS nationaltarget FROM nationalaqi WHERE timestamp BETWEEN #{currentTime} AND #{endTime}) nationaldata, (SELECT ${target} AS positiontarget, timestamp FROM ${position} WHERE timestamp BETWEEN #{currentTime} AND #{endTime}) positiondata)")
+    @Select("SELECT * FROM (SELECT nationaldata.${target} AS nationaltarget, positiondata.${target} AS positiontarget, positiondata.timestamp FROM nationalaqi nationaldata, ${position} positiondata WHERE nationaldata.timestamp = positiondata.timestamp) result WHERE timestamp BETWEEN #{currentTime} AND #{endTime}")
     List<AnalysisData> getAnalysisDatas(@Param("position") String position,
                                         @Param("target") String target,
                                         @Param("currentTime") String currentTime,

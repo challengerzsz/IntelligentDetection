@@ -22,6 +22,8 @@ public class User {
         this.update_time = update_time;
     }
 
+    public User() {}
+
 
     public Integer getId() {
         return id;

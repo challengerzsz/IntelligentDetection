@@ -1,5 +1,6 @@
 package com.bsb.service.impls;
 
+import com.bsb.common.Const;
 import com.bsb.common.ServerResponse;
 import com.bsb.dao.UserMapper;
 import com.bsb.pojo.Data;
@@ -32,4 +33,34 @@ public class UserService implements IUserService {
         user.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess("登陆成功", user);
     }
+
+    @Override
+    public ServerResponse<String> register(String authorizationCode, String realName, String phone, String password) {
+
+        int resultCode = userMapper.checkPhone(phone);
+        if (resultCode != 0) {
+            return ServerResponse.createByErrorMsg("用户已存在，注册失败");
+        }
+
+        int type = 0;
+        if (authorizationCode.equals(Const.ENTERPRISE_AUTHORIZATION_CODE)) {
+            type = 1;
+        } else if (authorizationCode.equals(Const.GOVERNMENT_AUTHORIZATION_CODE)){
+            type = 2;
+        }
+
+        if (type == 0) {
+            return ServerResponse.createByErrorMsg("授权码认证失败");
+        }
+
+        int insertResult = userMapper.insertUser(realName, phone, password, type);
+
+        if (insertResult == 0) {
+            return ServerResponse.createByErrorMsg("注册失败");
+        }
+
+        return ServerResponse.createBySuccessMsg("注册成功");
+
+    }
+
 }

@@ -30,6 +30,16 @@ public class UserController {
         return response;
     }
 
+    @RequestMapping(value = "register.do", method = RequestMethod.POST)
+    public ServerResponse<String> register(String authorizationCode, String realName, String phone, String password) {
+        ServerResponse<String> response = userService.register(authorizationCode, realName, phone, password);
+        if (!response.isSuccess()) {
+            return ServerResponse.createByErrorMsg("注册失败");
+        }
+
+        return response;
+    }
+
     @RequestMapping(value = "logout.do", method = RequestMethod.POST)
     public ServerResponse<String> logout(HttpSession session) {
         session.removeAttribute(Const.CURRENT_USER);

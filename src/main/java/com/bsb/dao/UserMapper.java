@@ -2,6 +2,7 @@ package com.bsb.dao;
 
 import com.bsb.pojo.Data;
 import com.bsb.pojo.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -11,4 +12,10 @@ public interface UserMapper {
 
     @Select("SELECT * FROM user_table WHERE phone = #{phone} AND password = #{password}")
     User login(@Param("phone") String phone, @Param("password") String password);
+
+    @Insert("INSERT INTO user_table VALUES (null, #{realName}, #{phone}, #{password}, #{type}, now(), now())")
+    int insertUser(@Param("realName") String realName,
+                   @Param("phone") String phone,
+                   @Param("password") String password,
+                   @Param("type") int type);
 }

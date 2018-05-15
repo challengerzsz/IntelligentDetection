@@ -8,6 +8,7 @@ import com.bsb.pojo.ComparedData;
 import com.bsb.pojo.Data;
 import com.bsb.service.IDataService;
 import com.bsb.util.AnalysisUtil;
+import com.bsb.util.PostionUtil;
 import com.bsb.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,16 @@ public class DataService implements IDataService {
 
     @Override
     public ServerResponse<Data> getNowData(String position) {
+
+//        对传入的position进行处理
+        String resultPosition = PostionUtil.transformPosition(position);
+        if (resultPosition == null) {
+            return ServerResponse.createByErrorMsg("监测地点不存在");
+        }
+        System.out.println("transform position is "  +  resultPosition);
+
 //        写死测试数据
-        Data data = dataMapper.getNowData(position, "2017-06-06 12:00:00");
+        Data data = dataMapper.getNowData(resultPosition, "2017-06-06 12:00:00");
         if (data == null) {
             return ServerResponse.createByErrorMsg("查询失败");
         }
@@ -43,7 +52,13 @@ public class DataService implements IDataService {
     @Override
     public ServerResponse<List<Data>> getDataBetweenTime(String position, String startTime, String endTime) {
 
-        List<Data> datas = dataMapper.getDataBetweenTime(position, startTime, endTime);
+        //        对传入的position进行处理
+        String resultPosition = PostionUtil.transformPosition(position);
+        if (resultPosition == null) {
+            return ServerResponse.createByErrorMsg("监测地点不存在");
+        }
+
+        List<Data> datas = dataMapper.getDataBetweenTime(resultPosition, startTime, endTime);
 
         if (datas == null) {
             return ServerResponse.createByErrorMsg("查询记录失败");
@@ -58,6 +73,13 @@ public class DataService implements IDataService {
 
     @Override
     public ServerResponse<ComparedData> getComparedData(String position, int type, String target) {
+
+        //        对传入的position进行处理
+        String resultPosition = PostionUtil.transformPosition(position);
+        if (resultPosition == null) {
+            return ServerResponse.createByErrorMsg("监测地点不存在");
+        }
+
         String translatedTime = TimeUtil.transToTime(type);
         String[] times = translatedTime.split(",");
         String currentTime = times[0];
@@ -65,7 +87,7 @@ public class DataService implements IDataService {
 
 
 //        取出指定监测站的时间段内数据
-        List<Double> positionDatas = dataMapper.getDatas(position, target, currentTime, endTime);
+        List<Double> positionDatas = dataMapper.getDatas(resultPosition, target, currentTime, endTime);
 //        取出国控点时间段数据
         List<Double> nationalDatas = dataMapper.getDatas(Const.NATIONAL_AQI, target, currentTime, endTime);
 //        取出时间段内测量的时间点
@@ -91,7 +113,13 @@ public class DataService implements IDataService {
         String endTime = times[1];
 
 
-        List<AnalysisData> analysisDatas = dataMapper.getAnalysisDatas(position, target, currentTime, endTime);
+        //        对传入的position进行处理
+        String resultPosition = PostionUtil.transformPosition(position);
+        if (resultPosition == null) {
+            return ServerResponse.createByErrorMsg("监测地点不存在");
+        }
+
+        List<AnalysisData> analysisDatas = dataMapper.getAnalysisDatas(resultPosition, target, currentTime, endTime);
         if (analysisDatas == null) {
             return ServerResponse.createByErrorMsg("查询失败，无数据存在");
         }

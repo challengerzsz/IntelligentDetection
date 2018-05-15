@@ -1,10 +1,11 @@
 package com.bsb.dao;
 
-import com.bsb.pojo.Data;
 import com.bsb.pojo.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 public interface UserMapper {
     @Select("SELECT COUNT(1) FROM user_table WHERE phone = #{phone}")
@@ -18,4 +19,7 @@ public interface UserMapper {
                    @Param("phone") String phone,
                    @Param("password") String password,
                    @Param("type") int type);
+
+    @Select("SELECT position FROM position_table WHERE phone = #{phone}")
+    List<String> getOwnPosition(String phone);
 }

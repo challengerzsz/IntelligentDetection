@@ -2,6 +2,7 @@ package com.bsb.pojo;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private Integer id;
@@ -11,6 +12,7 @@ public class User {
     private Integer type;
     private Date create_time;
     private Date update_time;
+    private List<String> ownPosition;
 
     public User(Integer id, String real_name, String phone, String password, Integer type, Timestamp create_time, Timestamp update_time) {
         this.id = id;
@@ -24,6 +26,14 @@ public class User {
 
     public User() {}
 
+
+    public List<String> getOwnPosition() {
+        return ownPosition;
+    }
+
+    public void setOwnPosition(List<String> ownPosition) {
+        this.ownPosition = ownPosition;
+    }
 
     public Integer getId() {
         return id;

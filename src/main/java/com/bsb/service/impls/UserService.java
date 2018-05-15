@@ -3,13 +3,14 @@ package com.bsb.service.impls;
 import com.bsb.common.Const;
 import com.bsb.common.ServerResponse;
 import com.bsb.dao.UserMapper;
-import com.bsb.pojo.Data;
 import com.bsb.pojo.User;
 import com.bsb.service.IUserService;
 import com.bsb.util.MD5Util;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService implements IUserService {
@@ -30,8 +31,16 @@ public class UserService implements IUserService {
             return ServerResponse.createByErrorMsg("密码错误");
         }
 
+//        对用户拥有的监测点信息进行处理
+        List<String> ownPositions = userMapper.getOwnPosition(user.getPhone());
+        if (ownPositions.size() == 0) {
+            return ServerResponse.createByErrorMsg("账号未购买任何监测点");
+        }
+
+        user.setOwnPosition(ownPositions);
         user.setPassword(StringUtils.EMPTY);
-        return ServerResponse.createBySuccess("登陆成功", user);
+
+        return ServerResponse.createBySuccess("登录成功", user);
     }
 
     @Override
@@ -62,5 +71,7 @@ public class UserService implements IUserService {
         return ServerResponse.createBySuccessMsg("注册成功");
 
     }
+
+
 
 }

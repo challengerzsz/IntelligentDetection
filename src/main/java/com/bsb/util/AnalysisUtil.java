@@ -11,6 +11,8 @@ public class AnalysisUtil {
 //        只需要20条记录
         long offset = data.size() / 20;
 
+
+        System.out.println("offset" + offset);
 //        不够20条记录 offset = 1
         if (offset == 0) offset = 1;
 
@@ -19,7 +21,6 @@ public class AnalysisUtil {
 
 
         for (int i = 0; i < data.size(); i += offset) {
-            System.out.println(i);
             resultDatas.add(data.get(i));
         }
 

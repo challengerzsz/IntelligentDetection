@@ -16,13 +16,13 @@ public class TimeUtil {
 //        String currentTimeStr = simpleDateFormat.format(new Date(currentTime));
         switch (type) {
             case 0:
-                endTime = currentTime + 24 * 60 * 60 * 1000;
+                endTime = currentTime + 24L * 60 * 60 * 1000;
                 break;
             case 1:
-                endTime = currentTime + 7 * 24 * 60 * 60 * 1000;
+                endTime = currentTime + 7L * 24 * 60 * 60 * 1000;
                 break;
             case 2:
-                endTime = currentTime + 30 * 24 * 60 * 60 * 1000;
+                endTime = currentTime + 30L * 24 * 60 * 60 * 1000;
                 break;
         }
 

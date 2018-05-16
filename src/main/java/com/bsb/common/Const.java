@@ -16,5 +16,7 @@ public class Const {
 
     public static final String GOVERNMENT_AUTHORIZATION_CODE = "CD05DA100A70F7D12928A804352E802A";
 
+    public static final String WEATHER_POSITION = "西安";
+
 
 }

@@ -10,9 +10,14 @@ import com.bsb.service.IDataService;
 import com.bsb.util.AnalysisUtil;
 import com.bsb.util.PostionUtil;
 import com.bsb.util.TimeUtil;
+import com.bsb.util.WeatherUtil;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Service
@@ -29,7 +34,6 @@ public class DataService implements IDataService {
         if (resultPosition == null) {
             return ServerResponse.createByErrorMsg("监测地点不存在");
         }
-        System.out.println("transform position is "  +  resultPosition);
 
 //        写死测试数据
         Data data = dataMapper.getNowData(resultPosition, "2017-06-06 12:00:00");
@@ -38,8 +42,19 @@ public class DataService implements IDataService {
         }
 
         data.calculateStatus();
+
+        try {
+            data.setWeathers(WeatherUtil.getWeatherByCity(URLEncoder.encode(Const.WEATHER_POSITION, "utf-8")));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+
         return ServerResponse.createBySuccess("查询成功", data);
+//        WeatherUtil.getWeatherByCity("北京");
+//        return null;
     }
+
 
     /**
      * 根据所选观测点 以及所选查询数据返回时间间的数据

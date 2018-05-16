@@ -2,6 +2,7 @@ package com.bsb.pojo;
 
 import java.util.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Data {
     private Integer id;
@@ -16,6 +17,7 @@ public class Data {
     private Double co;
     private Double aqi;
     private String status;
+    private List<Weather> weathers;
 
 
     public Data(Integer id, Timestamp timestamp, Double temperature, Double humidity, Double pm25, Double pm10, Double so2, Double no2, Double o3, Double co, Double aqi) {
@@ -30,6 +32,14 @@ public class Data {
         this.o3 = o3;
         this.co = co;
         this.aqi = aqi;
+    }
+
+    public List<Weather> getWeathers() {
+        return weathers;
+    }
+
+    public void setWeathers(List<Weather> weathers) {
+        this.weathers = weathers;
     }
 
     public Integer getId() {

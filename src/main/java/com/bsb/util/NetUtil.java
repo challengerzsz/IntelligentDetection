@@ -24,10 +24,11 @@ public class NetUtil {
                 stringBuffer = new StringBuffer();
 
                 connection.setDoOutput(true);
+                connection.setDoInput(true);
                 connection.setRequestMethod("POST");
 
                 OutputStream outputStream = connection.getOutputStream();
-                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream));
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));
 
                 Iterator iterator = param.entrySet().iterator();
 
@@ -46,12 +47,13 @@ public class NetUtil {
             stringBuffer = new StringBuffer();
 
             int resultCode = connection.getResponseCode();
+
+
             BufferedReader reader = null;
 
             if (resultCode == 200) {
-                InputStream in = connection.getInputStream();
 
-                reader = new BufferedReader((new InputStreamReader(in)));
+                reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "utf-8"));
                 String str = null;
                 stringBuffer = new StringBuffer();
 

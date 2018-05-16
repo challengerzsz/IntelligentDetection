@@ -112,7 +112,6 @@ public class DataService implements IDataService {
         String currentTime = times[0];
         String endTime = times[1];
 
-
         //        对传入的position进行处理
         String resultPosition = PostionUtil.transformPosition(position);
         if (resultPosition == null) {

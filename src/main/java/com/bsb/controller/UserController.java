@@ -3,7 +3,6 @@ package com.bsb.controller;
 
 import com.bsb.common.Const;
 import com.bsb.common.ServerResponse;
-import com.bsb.pojo.Data;
 import com.bsb.pojo.User;
 import com.bsb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,9 @@ public class UserController {
 
     @RequestMapping(value = "login.do", method = RequestMethod.POST)
     public ServerResponse<User> login(String phone, String password, HttpSession session) {
+//        方便测试设置session永不过期
+        session.setMaxInactiveInterval(0);
+
         ServerResponse<User> response = userService.login(phone, password);
         if (response.isSuccess()) {
             session.setAttribute(Const.CURRENT_USER, response.getData());

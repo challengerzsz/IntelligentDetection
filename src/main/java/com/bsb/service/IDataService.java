@@ -10,7 +10,7 @@ import java.util.List;
 public interface IDataService {
     ServerResponse<Data> getNowData(String now);
 
-    ServerResponse<List<Data>> getDataBetweenTime(String position, String startTime, String endTime);
+    ServerResponse<List<AnalysisData>> getDataBetweenTime(String position, String target, String startTime, String endTime);
 
     ServerResponse<ComparedData> getComparedData(String position, int type, String target);
 

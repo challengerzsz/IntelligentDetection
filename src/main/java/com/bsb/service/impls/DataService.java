@@ -43,14 +43,33 @@ public class DataService implements IDataService {
 
     /**
      * 根据所选观测点 以及所选查询数据返回时间间的数据
-     *
      * @param position
+     * @param target
      * @param startTime
      * @param endTime
      * @return
      */
     @Override
-    public ServerResponse<List<Data>> getDataBetweenTime(String position, String startTime, String endTime) {
+    public ServerResponse<List<AnalysisData>> getDataBetweenTime(String position, String target, String startTime, String endTime) {
+
+        //        对传入的position进行处理
+//        String resultPosition = PostionUtil.transformPosition(position);
+//        if (resultPosition == null) {
+//            return ServerResponse.createByErrorMsg("监测地点不存在");
+//        }
+//
+//        List<Data> datas = dataMapper.getDataBetweenTime(resultPosition, startTime, endTime);
+//
+//        if (datas == null) {
+//            return ServerResponse.createByErrorMsg("查询记录失败");
+//        }
+////        计算空气质量aqi
+//        for (Data data : datas) {
+//            data.calculateStatus();
+//        }
+//
+//        return ServerResponse.createBySuccess("查询成功", datas);
+
 
         //        对传入的position进行处理
         String resultPosition = PostionUtil.transformPosition(position);
@@ -58,18 +77,18 @@ public class DataService implements IDataService {
             return ServerResponse.createByErrorMsg("监测地点不存在");
         }
 
-        List<Data> datas = dataMapper.getDataBetweenTime(resultPosition, startTime, endTime);
-
-        if (datas == null) {
-            return ServerResponse.createByErrorMsg("查询记录失败");
-        }
-//        计算空气质量aqi
-        for (Data data : datas) {
-            data.calculateStatus();
+        List<AnalysisData> analysisDatas = dataMapper.getAnalysisDatas(resultPosition, target, startTime, endTime);
+        if (analysisDatas == null) {
+            return ServerResponse.createByErrorMsg("查询失败，无数据存在");
         }
 
-        return ServerResponse.createBySuccess("查询成功", datas);
+        List<AnalysisData> responseDatas = AnalysisUtil.analysisData(analysisDatas);
+
+        return ServerResponse.createBySuccess("查询成功", responseDatas);
+
+
     }
+
 
     @Override
     public ServerResponse<ComparedData> getComparedData(String position, int type, String target) {

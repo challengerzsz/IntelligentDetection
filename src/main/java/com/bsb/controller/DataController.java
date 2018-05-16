@@ -27,9 +27,9 @@ public class DataController {
     }
 
     @RequestMapping(value = "get_data_between_time.do", method =  RequestMethod.POST)
-    public ServerResponse<List<Data>> getDataBetweenTime(String position, String startTime, String endTime){
+    public ServerResponse<List<AnalysisData>> getDataBetweenTime(String position, String target, String startTime, String endTime){
 
-        ServerResponse<List<Data>> response = dataService.getDataBetweenTime(position, startTime, endTime);
+        ServerResponse<List<AnalysisData>> response = dataService.getDataBetweenTime(position, target, startTime, endTime);
         if (!response.isSuccess()) {
             return ServerResponse.createByErrorMsg("查询失败");
         }
